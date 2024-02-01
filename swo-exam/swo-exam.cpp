@@ -623,7 +623,7 @@ char* CharSetOf(const char* a, const char* b) {
 
 		}
 	}
-	char* result = (char*)malloc(sizeof(char) *tmp_idx);
+	char* result = (char*)malloc(sizeof(char) * tmp_idx);
 	for (int i = 0; i < tmp_idx; i++)
 	{
 		result[i] = tmp[i];
@@ -646,13 +646,62 @@ char* CharSetOf(const char* a, const char* b) {
 
 
 int main() {
-	printf("Ordered Charset of \"hell o\" \"world!\" = %s \n",CharSetOf("hell o", "world!"));
+	printf("Ordered Charset of \"hell o\" \"world!\" = %s \n", CharSetOf("hell o", "world!"));
 
 }
 #endif // Charset C
 
 
-int main() {
+#ifdef Cpp HT
+class Entry {
+private:
+	std::string s;
+	Entry* next;
+public:
+	Entry(const std::string& s, Entry* next) :s{ s }, next{ next }{}
+	~Entry();
+
+	friend class HashTable;
+};
+
+class HashTable {
+private:
+	Entry** ht;
+	int size;
+	int Hash(const std::string& s) const;
+public:
+	HashTable(int size = 17) :size{ size } {
+		ht = new Entry * [size];
+		for (int i = 0; i < size; i++)
+		{
+			ht[i] = nullptr;
+		}
+	}
+
+	~HashTable() {
+		for (int i = 0; i < size; i++)
+		{
+			Entry* entry_node = ht[i];
+			while (entry_node != nullptr)
+			{
+				Entry* tmp = entry_node;
+				entry_node = entry_node->next;
+				delete tmp;
+			}
+		}
+		delete[] ht;
+	}
+	void Insert(const std::string& s) {
+		int h = Hash(s);
+		if (!Contains(s)) {
+			ht[h] = new Entry(s, ht[h]);
+		}
+	}
+	bool Contains(const std::string& s);
+};
+
+#endif // CPP HT
 
 
-}
+int main();
+
