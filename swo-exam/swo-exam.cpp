@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <cstdio>
 
-#ifdef BinTree
+#if BinTree C
 typedef struct node* node_ptr;
 
 typedef struct node {
@@ -101,7 +101,7 @@ int main()
 #endif // BinTree
 
 
-#ifdef Person
+#if Person CPP
 class person {
 private:
 	unsigned long int  snr;
@@ -152,7 +152,7 @@ int main() {
 }
 #endif // Person
 
-
+#if SLL C
 typedef struct node* node_ptr;
 typedef struct node {
 	int val;
@@ -301,4 +301,11 @@ int main() {
 	}
 	clear_list(&list);
 	clear_list(&rev_list);
+}
+#endif // SLL
+
+
+
+int main(){
+
 }
